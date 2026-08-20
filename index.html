@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Kiniun — Restaurant Africain d'Exception</title>
+<link rel="icon" type="image/jpeg" href="assets/logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/npm/fontsource-playfair-display@4.5.0/index.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fontsource-inter@4.5.0/index.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fontsource-cormorant-garamond@4.5.0/index.css" rel="stylesheet">
+<style>
+  :root{
+    --terracotta:#C8553D;
+    --terracotta-dark:#A0422F;
+    --gold:#D4AF37;
+    --gold-light:#E8C547;
+    --dark:#1A0F0A;
+    --brown:#3E2723;
+    --cream:#FAF0E6;
+    --cream-dark:#F5E6D3;
+    --green:#2E5D3A;
+    --text:#2C1810;
+    --text-light:#6B4423;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    background:var(--cream);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:700;line-height:1.2}
+  .cursive{font-family:'Cormorant Garamond',serif;font-style:italic}
+
+  /* ===== NAVBAR ===== */
+  .navbar{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:1.2rem 5%;
+    display:flex;justify-content:space-between;align-items:center;
+    transition:all .4s ease;
+    background:transparent;
+  }
+  .navbar.scrolled{
+    background:rgba(26,15,10,.95);
+    backdrop-filter:blur(10px);
+    padding:.8rem 5%;
+    box-shadow:0 4px 20px rgba(0,0,0,.3);
+  }
+  .logo{
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;font-weight:700;
+    color:#fff;
+    display:flex;align-items:center;gap:.7rem;
+    text-decoration:none;
+  }
+  .logo-icon{
+    width:46px;height:46px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--gold);
+    box-shadow:0 0 0 2px rgba(0,0,0,.4);
+  }
+  .nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+  .nav-links a{
+    color:#fff;text-decoration:none;font-weight:500;
+    font-size:.95rem;position:relative;
+    transition:color .3s;
+    text-transform:uppercase;letter-spacing:1px;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-6px;left:0;
+    width:0;height:2px;background:var(--gold);
+    transition:width .3s;
+  }
+  .nav-links a:hover{color:var(--gold)}
+  .nav-links a:hover::after{width:100%}
+  .btn-reserve{
+    background:var(--terracotta);color:#fff!important;
+    padding:.7rem 1.5rem;border-radius:4px;
+    transition:all .3s!important;
+  }
+  .btn-reserve:hover{background:var(--gold);color:var(--dark)!important}
+  .btn-reserve::after{display:none!important}
+  .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
+
+  /* ===== HERO ===== */
+  .hero{
+    height:100vh;min-height:700px;
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;color:#fff;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:url('https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1086fb613-49c6-47d5-b8f9-4dd814865f7d.png') center/cover;
+    z-index:0;
+  }
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(26,15,10,.85) 0%,rgba(62,39,35,.7) 50%,rgba(26,15,10,.85) 100%);
+  }
+  .hero-content{position:relative;z-index:2;max-width:900px;padding:0 2rem}
+  .hero-badge{
+    display:inline-block;
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:1.3rem;
+    color:var(--gold);
+    margin-bottom:1.5rem;
+    letter-spacing:2px;
+  }
+  .hero-title{
+    font-size:clamp(2.8rem,7vw,6rem);
+    font-weight:700;
+    margin-bottom:1rem;
+    text-shadow:2px 2px 20px rgba(0,0,0,.5);
+  }
+  .hero-title .accent{color:var(--gold)}
+  .hero-subtitle{
+    font-size:clamp(1rem,2vw,1.3rem);
+    margin-bottom:2.5rem;
+    opacity:.95;
+    font-weight:300;
+    letter-spacing:1px;
+  }
+  .hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .btn{
+    padding:1rem 2.5rem;
+    border-radius:4px;
+    text-decoration:none;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:.85rem;
+    transition:all .4s ease;
+    display:inline-block;
+    border:2px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--terracotta);color:#fff}
+  .btn-primary:hover{background:var(--gold);color:var(--dark);transform:translateY(-3px);box-shadow:0 10px 30px rgba(212,175,55,.4)}
+  .btn-outline{background:transparent;color:#fff;border-color:#fff}
+  .btn-outline:hover{background:#fff;color:var(--dark);transform:translateY(-3px)}
+  .btn-gold{background:var(--gold);color:var(--dark)}
+  .btn-gold:hover{background:#fff;color:var(--dark);transform:translateY(-3px);box-shadow:0 10px 30px rgba(212,175,55,.4)}
+
+  .scroll-indicator{
+    position:absolute;bottom:30px;left:50%;
+    transform:translateX(-50%);
+    color:#fff;
+    animation:bounce 2s infinite;
+    z-index:2;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateX(-50%) translateY(0)}
+    50%{transform:translateX(-50%) translateY(-15px)}
+  }
+
+  /* ===== SECTIONS ===== */
+  section{padding:7rem 5%}
+  .section-header{text-align:center;margin-bottom:4rem}
+  .section-tag{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;color:var(--terracotta);
+    font-size:1.3rem;margin-bottom:.8rem;
+    letter-spacing:2px;
+  }
+  .section-title{
+    font-size:clamp(2rem,4vw,3.2rem);
+    color:var(--brown);
+    margin-bottom:1rem;
+  }
+  .section-divider{
+    width:80px;height:3px;
+    background:var(--gold);
+    margin:0 auto 1.5rem;
+  }
+  .section-desc{
+    max-width:700px;margin:0 auto;
+    color:var(--text-light);
+    font-size:1.05rem;
+  }
+
+  /* ===== ABOUT ===== */
+  .about{background:var(--cream)}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:5rem;
+    align-items:center;
+    max-width:1300px;
+    margin:0 auto;
+  }
+  .about-image{position:relative}
+  .about-image img{
+    width:100%;height:500px;object-fit:cover;
+    border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
+  }
+  .about-image::before{
+    content:'';position:absolute;
+    top:-20px;left:-20px;right:20px;bottom:20px;
+    border:3px solid var(--gold);
+    border-radius:8px;
+    z-index:-1;
+  }
+  .about-text h2{
+    font-size:2.5rem;color:var(--brown);
+    margin-bottom:1.5rem;
+  }
+  .about-text .tagline{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;color:var(--terracotta);
+    font-size:1.2rem;margin-bottom:1.5rem;
+  }
+  .about-text p{
+    color:var(--text-light);
+    margin-bottom:1.2rem;
+    font-size:1.05rem;
+  }
+  .about-stats{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:1.5rem;margin-top:2.5rem;
+  }
+  .stat{text-align:center}
+  .stat-number{
+    font-family:'Playfair Display',serif;
+    font-size:2.5rem;color:var(--terracotta);
+    font-weight:700;
+  }
+  .stat-label{
+    font-size:.85rem;color:var(--text-light);
+    text-transform:uppercase;letter-spacing:1px;
+    margin-top:.3rem;
+  }
+
+  /* ===== SPECIALTIES ===== */
+  .specialties{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+  .specialties::before{
+    content:'';position:absolute;
+    top:0;left:0;right:0;height:200px;
+    background:linear-gradient(to bottom,var(--dark),transparent);
+    z-index:1;
+  }
+  .specialties .section-title{color:#fff}
+  .specialties .section-desc{color:rgba(255,255,255,.7)}
+  .menu-tabs{
+    display:flex;justify-content:center;gap:1rem;
+    margin-bottom:3rem;flex-wrap:wrap;
+    position:relative;z-index:2;
+  }
+  .menu-tab{
+    padding:.8rem 2rem;
+    background:transparent;
+    border:2px solid rgba(255,255,255,.2);
+    color:#fff;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:.85rem;
+    transition:all .3s;
+  }
+  .menu-tab.active,.menu-tab:hover{
+    background:var(--gold);color:var(--dark);
+    border-color:var(--gold);
+  }
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:2rem;
+    max-width:1300px;
+    margin:0 auto;
+    position:relative;z-index:2;
+  }
+  .menu-card{
+    background:rgba(255,255,255,.05);
+    border-radius:12px;
+    overflow:hidden;
+    transition:all .4s ease;
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(10px);
+  }
+  .menu-card:hover{
+    transform:translateY(-10px);
+    border-color:var(--gold);
+    box-shadow:0 20px 40px rgba(0,0,0,.4);
+  }
+  .menu-card-img{
+    height:240px;overflow:hidden;position:relative;
+  }
+  .menu-card-img img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .6s;
+  }
+  .menu-card:hover .menu-card-img img{transform:scale(1.1)}
+  .menu-card-badge{
+    position:absolute;top:15px;right:15px;
+    background:var(--terracotta);color:#fff;
+    padding:.4rem 1rem;border-radius:20px;
+    font-size:.75rem;font-weight:700;
+    text-transform:uppercase;letter-spacing:1px;
+  }
+  .menu-card-content{padding:1.8rem}
+  .menu-card-title{
+    font-size:1.4rem;margin-bottom:.5rem;color:#fff;
+  }
+  .menu-card-desc{
+    color:rgba(255,255,255,.7);
+    font-size:.95rem;margin-bottom:1.2rem;
+  }
+  .menu-card-footer{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);
+  }
+  .menu-card-price{
+    font-family:'Playfair Display',serif;
+    font-size:1.5rem;color:var(--gold);
+    font-weight:700;
+  }
+  .menu-card-origin{
+    font-size:.8rem;color:rgba(255,255,255,.5);
+    text-transform:uppercase;letter-spacing:1px;
+  }
+
+  /* ===== CHEF ===== */
+  .chef{background:var(--cream-dark)}
+  .chef-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:5rem;
+    align-items:center;
+    max-width:1300px;
+    margin:0 auto;
+  }
+  .chef-image{position:relative}
+  .chef-image img{
+    width:100%;height:550px;object-fit:cover;
+    border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+  }
+  .chef-image::after{
+    content:'';position:absolute;
+    bottom:-20px;right:-20px;left:20px;top:20px;
+    border:3px solid var(--terracotta);
+    border-radius:8px;
+    z-index:-1;
+  }
+  .chef-text h2{font-size:2.5rem;color:var(--brown);margin-bottom:1rem}
+  .chef-text .chef-name{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;color:var(--terracotta);
+    font-size:1.5rem;margin-bottom:1.5rem;
+  }
+  .chef-text p{color:var(--text-light);margin-bottom:1.2rem;font-size:1.05rem}
+  .chef-signature{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:1.8rem;
+    color:var(--gold);margin-top:2rem;
+  }
+
+  /* ===== CAVE / CHAMPAGNE ===== */
+  .cave{
+    background:var(--dark);
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .cave::before{
+    content:'';position:absolute;
+    top:0;left:0;right:0;height:200px;
+    background:linear-gradient(to bottom,rgba(0,0,0,.3),transparent);
+    z-index:1;
+  }
+  .cave .section-title{color:#fff}
+  .cave .section-desc{color:rgba(255,255,255,.7)}
+  .cave-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:5rem;
+    align-items:center;
+    max-width:1300px;
+    margin:0 auto;
+    position:relative;z-index:2;
+  }
+  .cave-text .cave-name{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;color:var(--gold);
+    font-size:1.6rem;margin-bottom:1.2rem;
+  }
+  .cave-text h2{font-size:2.5rem;color:#fff;margin-bottom:.5rem}
+  .cave-text p{color:rgba(255,255,255,.75);margin-bottom:1.2rem;font-size:1.05rem}
+  .cave-notes{
+    display:flex;flex-wrap:wrap;gap:.8rem;
+    margin:1.8rem 0;
+  }
+  .cave-note{
+    padding:.5rem 1.2rem;
+    border:1px solid rgba(212,175,55,.4);
+    border-radius:30px;
+    font-size:.85rem;
+    letter-spacing:.5px;
+    color:var(--gold-light);
+    background:rgba(212,175,55,.08);
+  }
+  .cave-price-row{
+    display:flex;align-items:center;gap:1.5rem;
+    margin-top:2rem;flex-wrap:wrap;
+  }
+  .cave-price{
+    font-family:'Playfair Display',serif;
+    font-size:2.2rem;color:var(--gold);
+    font-weight:700;
+  }
+  .cave-image{position:relative;display:flex;justify-content:center}
+  .cave-image img{
+    max-width:100%;height:560px;object-fit:cover;
+    border-radius:8px;
+    box-shadow:0 25px 60px rgba(0,0,0,.5);
+  }
+  .cave-image::after{
+    content:'';position:absolute;
+    top:20px;left:-20px;right:-20px;bottom:-20px;
+    border:3px solid var(--gold);
+    border-radius:8px;
+    z-index:-1;
+  }
+  .cave-badge{
+    position:absolute;top:20px;left:20px;
+    background:var(--gold);color:var(--dark);
+    padding:.5rem 1.2rem;border-radius:20px;
+    font-size:.75rem;font-weight:700;
+    text-transform:uppercase;letter-spacing:1px;
+    z-index:3;
+  }
+
+  /* ===== GALLERY ===== */
+  .gallery{background:var(--cream)}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(2,250px);
+    gap:1rem;
+    max-width:1400px;
+    margin:0 auto;
+  }
+  .gallery-item{
+    overflow:hidden;
+    border-radius:8px;
+    position:relative;
+    cursor:pointer;
+  }
+  .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+  .gallery-item:nth-child(4){grid-column:span 2}
+  .gallery-item img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .6s;
+  }
+  .gallery-item:hover img{transform:scale(1.1)}
+  .gallery-item::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(26,15,10,.7),transparent);
+    opacity:0;transition:opacity .3s;
+  }
+  .gallery-item:hover::after{opacity:1}
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials{
+    background:var(--brown);
+    color:#fff;
+    position:relative;
+  }
+  .testimonials .section-title{color:#fff}
+  .testimonials .section-desc{color:rgba(255,255,255,.7)}
+  .testimonial-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:2rem;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .testimonial-card{
+    background:rgba(255,255,255,.05);
+    padding:2.5rem;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.1);
+    transition:all .3s;
+  }
+  .testimonial-card:hover{
+    background:rgba(255,255,255,.1);
+    transform:translateY(-5px);
+  }
+  .testimonial-quote{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:1.1rem;
+    line-height:1.7;
+    margin-bottom:1.5rem;
+    color:rgba(255,255,255,.9);
+  }
+  .testimonial-stars{color:var(--gold);margin-bottom:1rem;font-size:1.1rem}
+  .testimonial-author{
+    display:flex;align-items:center;gap:1rem;
+  }
+  .testimonial-avatar{
+    width:50px;height:50px;border-radius:50%;
+    background:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:var(--dark);
+    font-family:'Playfair Display',serif;
+  }
+  .testimonial-name{font-weight:600;color:#fff}
+  .testimonial-role{font-size:.85rem;color:rgba(255,255,255,.6)}
+
+  /* ===== RESERVATION ===== */
+  .reservation{
+    background:linear-gradient(135deg,var(--terracotta) 0%,var(--terracotta-dark) 100%);
+    color:#fff;
+    position:relative;
+  }
+  .reservation .section-title{color:#fff}
+  .reservation .section-desc{color:rgba(255,255,255,.9)}
+  .reservation-container{
+    max-width:900px;
+    margin:0 auto;
+    background:rgba(255,255,255,.1);
+    backdrop-filter:blur(10px);
+    padding:3rem;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.2);
+  }
+  .reservation-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem;
+  }
+  .form-group{display:flex;flex-direction:column}
+  .form-group.full{grid-column:span 2}
+  .form-group label{
+    margin-bottom:.5rem;
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-weight:600;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea{
+    padding:1rem;
+    border:2px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.1);
+    color:#fff;
+    border-radius:6px;
+    font-family:inherit;
+    font-size:1rem;
+    transition:all .3s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus{
+    outline:none;
+    border-color:var(--gold);
+    background:rgba(255,255,255,.15);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder{color:rgba(255,255,255,.6)}
+  .form-group select option{color:var(--dark);background:#fff}
+  .form-submit{
+    grid-column:span 2;
+    padding:1.2rem;
+    background:var(--gold);
+    color:var(--dark);
+    border:none;
+    border-radius:6px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:.95rem;
+    cursor:pointer;
+    transition:all .3s;
+    margin-top:1rem;
+  }
+  .form-submit:hover{background:#fff;transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+
+  /* ===== INFO BAR ===== */
+  .info-bar{
+    background:var(--dark);
+    color:#fff;
+    padding:4rem 5%;
+  }
+  .info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:3rem;
+    max-width:1300px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .info-item{
+    display:flex;flex-direction:column;align-items:center;gap:1rem;
+  }
+  .info-icon{
+    width:60px;height:60px;
+    background:var(--gold);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.5rem;color:var(--dark);
+  }
+  .info-title{
+    font-family:'Playfair Display',serif;
+    font-size:1.3rem;color:var(--gold);
+  }
+  .info-text{color:rgba(255,255,255,.7);font-size:.95rem;line-height:1.8}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:#0d0705;
+    color:rgba(255,255,255,.7);
+    padding:4rem 5% 2rem;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:3rem;
+    max-width:1300px;
+    margin:0 auto 3rem;
+  }
+  .footer-col h4{
+    color:var(--gold);
+    margin-bottom:1.5rem;
+    font-size:1.2rem;
+  }
+  .footer-col p,.footer-col a{
+    color:rgba(255,255,255,.7);
+    text-decoration:none;
+    line-height:2;
+    font-size:.95rem;
+    transition:color .3s;
+  }
+  .footer-col a:hover{color:var(--gold)}
+  .footer-col ul{list-style:none}
+  .footer-brand{
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;color:#fff;
+    margin-bottom:1rem;
+  }
+  .footer-social{
+    display:flex;gap:1rem;margin-top:1.5rem;
+  }
+  .footer-social a{
+    width:40px;height:40px;
+    background:rgba(255,255,255,.1);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .3s;
+  }
+  .footer-social a:hover{background:var(--gold);color:var(--dark)}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.1);
+    padding-top:2rem;
+    text-align:center;
+    font-size:.9rem;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in{
+    opacity:0;
+    transform:translateY(30px);
+    transition:all .8s ease;
+  }
+  .fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:968px){
+    .about-grid,.chef-grid,.cave-grid{grid-template-columns:1fr;gap:3rem}
+    .about-image img,.chef-image img,.cave-image img{height:400px}
+    .cave-grid .cave-image{order:-1}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto}
+    .gallery-item:nth-child(1),.gallery-item:nth-child(4){grid-column:span 1;grid-row:span 1}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    .reservation-form{grid-template-columns:1fr}
+    .form-group.full,.form-submit{grid-column:span 1}
+  }
+  @media(max-width:768px){
+    .nav-links{
+      position:fixed;top:0;right:-100%;
+      width:75%;height:100vh;
+      background:var(--dark);
+      flex-direction:column;
+      justify-content:center;
+      transition:right .4s;
+      padding:2rem;
+    }
+    .nav-links.active{right:0}
+    .menu-toggle{display:block;z-index:1001}
+    section{padding:5rem 5%}
+    .about-stats{grid-template-columns:1fr;gap:1rem}
+    .footer-grid{grid-template-columns:1fr}
+    .reservation-container{padding:2rem 1.5rem}
+  }
+
+  /* ===== DECORATIVE ===== */
+  .african-pattern{
+    height:20px;
+    background:repeating-linear-gradient(
+      45deg,
+      var(--terracotta) 0px,
+      var(--terracotta) 10px,
+      var(--gold) 10px,
+      var(--gold) 20px,
+      var(--green) 20px,
+      var(--green) 30px,
+      var(--brown) 30px,
+      var(--brown) 40px
+    );
+  }
+
+  /* Notification */
+  .notification{
+    position:fixed;
+    top:100px;right:20px;
+    background:var(--green);
+    color:#fff;
+    padding:1rem 2rem;
+    border-radius:8px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    z-index:2000;
+    transform:translateX(400px);
+    transition:transform .4s;
+  }
+  .notification.show{transform:translateX(0)}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="logo">
+    <img src="assets/logo.jpeg" alt="Logo Le Kiniun" class="logo-icon">
+    Le Kiniun
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#chef">Notre Chef</a></li>
+    <li><a href="#cave">Champagne</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#reservation" class="btn-reserve">Réserver</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge"> Spécialité Africaine ✦</div>
+    <h1 class="hero-title">Le <span class="accent">Kiniun</span></h1>
+    <p class="hero-subtitle">Voyagez au cœur de l'Afrique à travers ses saveurs culinaires authentiques</p>
+    <div class="hero-buttons">
+      <a href="#reservation" class="btn btn-primary">Réserver une table</a>
+      <a href="#menu" class="btn btn-outline">Découvrir le menu</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M19 12l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<div class="african-pattern"></div>
+
+<!-- ABOUT -->
+<section class="about" id="apropos">
+  <div class="about-grid">
+    <div class="about-image fade-in">
+      <img src="https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1cd1b8dc4-8252-40df-bf21-56a96f5c2c69.png" alt="Cuisine africaine">
+    </div>
+    <div class="about-text fade-in">
+      <div class="section-tag">Notre Histoire</div>
+      <h2>Une Odyssée Culinaire Africaine</h2>
+      <p class="tagline">"L'Afrique dans votre assiette, l'âme dans chaque bouchée"</p>
+      <p>Bienvenue au <strong>Le Kiniun</strong>, un restaurant d'exception qui vous invite à un voyage sensoriel à travers les saveurs authentiques du continent africain. Notre établissement célèbre la richesse et la diversité de la gastronomie africaine, des épices vibrantes de l'Ouest aux délices raffinés du Nord.</p>
+      <p>Chaque plat est une histoire, chaque saveur un souvenir. Nos chefs, formés aux traditions ancestrales, subliment les ingrédients les plus nobles pour vous offrir une expérience culinaire unique, alliant authenticité et raffinement contemporain.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Années d'expérience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Plats authentiques</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">20K+</div>
+          <div class="stat-label">Clients satisfaits</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALTIES -->
+<section class="specialties" id="menu">
+  <div class="section-header fade-in">
+    <div class="section-tag">Notre Carte</div>
+    <h2 class="section-title">Nos Spécialités</h2>
+    <div class="section-divider"></div>
+    <p class="section-desc">Découvrez notre sélection de plats emblématiques, préparés avec passion et des ingrédients soigneusement sélectionnés</p>
+  </div>
+
+  <div class="menu-tabs fade-in">
+    <button class="menu-tab active" data-category="all">Tous</button>
+    <button class="menu-tab" data-category="entrees">Entrées</button>
+    <button class="menu-tab" data-category="plats">Plats</button>
+    <button class="menu-tab" data-category="desserts">Desserts</button>
+    <button class="menu-tab" data-category="boissons">Boissons</button>
+  </div>
+
+  <div class="menu-grid" id="menuGrid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- CHEF -->
+<section class="chef" id="chef">
+  <div class="chef-grid">
+    <div class="chef-image fade-in">
+      <img src="https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1b1c83cc8-041b-4c99-8355-7a363f8fbcec.png" alt="Chef du Kiniun">
+    </div>
+    <div class="chef-text fade-in">
+      <div class="section-tag">Maître des Saveurs</div>
+      <h2>Notre Chef Étoilé</h2>
+      <div class="chef-name">Chef Amadou Diallo</div>
+      <p>Avec plus de 20 ans d'expérience dans les plus grandes cuisines d'Afrique et d'Europe, le Chef Amadou Diallo incarne l'excellence de la gastronomie africaine contemporaine.</p>
+      <p>Formé à Dakar, Paris et Marrakech, il maîtrise l'art subtil de marier les traditions culinaires ancestrales avec les techniques modernes, créant ainsi des plats qui racontent l'histoire vibrante du continent.</p>
+      <p>Sa philosophie : <em>"Cuisiner avec le cœur, servir avec l'âme"</em>.</p>
+      <div class="chef-signature">— Chef Amadou Diallo</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAVE / CHAMPAGNE -->
+<section class="cave" id="cave">
+  <div class="cave-grid">
+    <div class="cave-text fade-in">
+      <div class="section-tag" style="color:var(--gold)">Notre Cuvée Signature</div>
+      <h2>Champagne Le Kiniun</h2>
+      <div class="cave-name">Brut — Édition du Lion Couronné</div>
+      <p>Fidèle à l'esprit du Kiniun, notre champagne signature porte fièrement le blason au lion couronné de la maison. Une cuvée Brut exclusive, sélectionnée pour accompagner nos plats d'exception et sublimer vos moments de célébration.</p>
+      <p>Fines bulles, robe dorée et une élégance qui rappelle le raffinement de notre table : le Champagne Le Kiniun est à lui seul une invitation au voyage.</p>
+      <div class="cave-notes">
+        <span class="cave-note">✦ Bulles fines</span>
+        <span class="cave-note">✦ Notes d'agrumes</span>
+        <span class="cave-note">✦ Touche briochée</span>
+        <span class="cave-note">✦ Finale délicate</span>
+      </div>
+      <div class="cave-price-row">
+        <div class="cave-price">65€ <span style="font-size:1rem;color:rgba(255,255,255,.6);font-family:'Inter',sans-serif;font-weight:400">/ bouteille</span></div>
+        <a href="#reservation" class="btn btn-gold">Commander une bouteille</a>
+      </div>
+    </div>
+    <div class="cave-image fade-in">
+      <div class="cave-badge">Exclusivité Maison</div>
+      <img src="assets/champagne-pro.jpeg" alt="Champagne Le Kiniun Brut">
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="galerie">
+  <div class="section-header fade-in">
+    <div class="section-tag">Ambiance</div>
+    <h2 class="section-title">Notre Univers</h2>
+    <div class="section-divider"></div>
+    <p class="section-desc">Plongez dans l'atmosphère chaleureuse et authentique du Kiniun</p>
+  </div>
+  <div class="gallery-grid fade-in">
+    <div class="gallery-item">
+      <img src="https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1086fb613-49c6-47d5-b8f9-4dd814865f7d.png" alt="Intérieur du restaurant">
+    </div>
+    <div class="gallery-item">
+      <img src="https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1cd1b8dc4-8252-40df-bf21-56a96f5c2c69.png" alt="Plat africain">
+    </div>
+    <div class="gallery-item">
+      <img src="https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/118cf5b22-f466-4a39-af5c-72bf86207abc.png" alt="Poulet grillé">
+    </div>
+    <div class="gallery-item">
+      <img src="assets/champagne-pro.jpeg" alt="Champagne Le Kiniun">
+    </div>
+    <div class="gallery-item">
+      <img src="https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1b1c83cc8-041b-4c99-8355-7a363f8fbcec.png" alt="Chef en cuisine">
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header fade-in">
+    <div class="section-tag" style="color:var(--gold)">Témoignages</div>
+    <h2 class="section-title">Ce que disent nos clients</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="testimonial-grid fade-in">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-quote">"Une expérience culinaire exceptionnelle ! Les saveurs authentiques m'ont transporté directement au Sénégal. Le Jollof Rice est tout simplement divin."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">ML</div>
+        <div>
+          <div class="testimonial-name">Marie Laurent</div>
+          <div class="testimonial-role">Critique gastronomique</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-quote">"Le cadre est magnifique, le service impeccable et la nourriture à couper le souffle. Le meilleur restaurant africain que j'ai visité en Europe !"</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">JD</div>
+        <div>
+          <div class="testimonial-name">Jean Dupont</div>
+          <div class="testimonial-role">Client fidèle</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-quote">"Un voyage gustatif inoubliable. Chaque plat raconte une histoire. Le Chef Amadou est un véritable artiste. Je recommande vivement !"</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">SK</div>
+        <div>
+          <div class="testimonial-name">Sophie Koné</div>
+          <div class="testimonial-role">Blogueuse culinaire</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reservation">
+  <div class="section-header fade-in">
+    <div class="section-tag" style="color:var(--gold)">Réservation</div>
+    <h2 class="section-title">Réservez Votre Table</h2>
+    <div class="section-divider"></div>
+    <p class="section-desc">Offrez-vous une expérience culinaire unique. Réservez dès maintenant votre table au Le Kiniun.</p>
+  </div>
+  <div class="reservation-container fade-in">
+    <form class="reservation-form" id="reservationForm">
+      <div class="form-group">
+        <label>Nom complet</label>
+        <input type="text" placeholder="Votre nom" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="votre@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="+33 6 00 00 00 00" required>
+      </div>
+      <div class="form-group">
+        <label>Nombre de personnes</label>
+        <select required>
+          <option value="">Sélectionnez</option>
+          <option>1 personne</option>
+          <option>2 personnes</option>
+          <option>3 personnes</option>
+          <option>4 personnes</option>
+          <option>5 personnes</option>
+          <option>6+ personnes</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" required>
+      </div>
+      <div class="form-group">
+        <label>Heure</label>
+        <select required>
+          <option value="">Sélectionnez</option>
+          <option>12:00</option>
+          <option>12:30</option>
+          <option>13:00</option>
+          <option>19:00</option>
+          <option>19:30</option>
+          <option>20:00</option>
+          <option>20:30</option>
+          <option>21:00</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>Message (optionnel)</label>
+        <textarea rows="3" placeholder="Allergies, occasion spéciale..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Confirmer la réservation</button>
+    </form>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<section class="info-bar">
+  <div class="info-grid fade-in">
+    <div class="info-item">
+      <div class="info-icon">📍</div>
+      <div class="info-title">Adresse</div>
+      <div class="info-text">42 Avenue de l'Afrique<br>75008 Paris, France</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">🕐</div>
+      <div class="info-title">Horaires</div>
+      <div class="info-text">Mar - Dim : 12h - 15h<br>Mar - Dim : 19h - 23h</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">📞</div>
+      <div class="info-title">Contact</div>
+      <div class="info-text"><a href="tel:+33186019102" style="color:inherit;text-decoration:none">+33 1 86 01 91 02</a><br><a href="mailto:lekiniun93@gmail.com" style="color:inherit;text-decoration:none">lekiniun93@gmail.com</a></div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">️</div>
+      <div class="info-title">Événements</div>
+      <div class="info-text">Privatisation disponible<br>Groupes & célébrations</div>
+    </div>
+  </div>
+</section>
+
+<div class="african-pattern"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-brand">Le Kiniun</div>
+      <p>Restaurant africain d'exception. Une invitation au voyage à travers les saveurs authentiques du continent.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="TripAdvisor">✈</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#cave">Champagne</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#reservation">Réservation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Privatisation</a></li>
+        <li><a href="#">Événements</a></li>
+        <li><a href="#">Livraison</a></li>
+        <li><a href="#">Carte cadeau</a></li>
+        <li><a href="#">Traiteur</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>📍 42 Avenue de l'Afrique</li>
+        <li>📞 <a href="tel:+33186019102">+33 1 86 01 91 02</a></li>
+        <li>✉️ <a href="mailto:lekiniun93@gmail.com">lekiniun93@gmail.com</a></li>
+        <li>🕐 Mar-Dim : 12h-23h</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Le Kiniun — Restaurant Africain d'Exception. Tous droits réservés. | Conçu avec ❤️ pour l'Afrique</p>
+  </div>
+</footer>
+
+<!-- NOTIFICATION -->
+<div class="notification" id="notification">✓ Réservation envoyée avec succès !</div>
+
+<script>
+// ===== NAVBAR SCROLL =====
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+});
+
+// ===== MOBILE MENU =====
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+});
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    menuToggle.textContent = '☰';
+  });
+});
+
+// ===== MENU DATA =====
+const menuItems = [
+  {
+    category: 'entrees',
+    title: 'Accras de Morue',
+    desc: 'Beignets croustillants de morue aux épices antillaises, servis avec une sauce pimentée maison.',
+    price: '12€',
+    origin: 'Afrique de l\'Ouest',
+    badge: 'Populaire',
+    img: 'https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1cd1b8dc4-8252-40df-bf21-56a96f5c2c69.png'
+  },
+  {
+    category: 'plats',
+    title: 'Jollof Rice Royal',
+    desc: 'Riz parfumé à la tomate, poivrons et épices, accompagné de poulet grillé et plantains caramélisés.',
+    price: '24€',
+    origin: 'Sénégal / Nigeria',
+    badge: 'Signature',
+    img: 'https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1cd1b8dc4-8252-40df-bf21-56a96f5c2c69.png'
+  },
+  {
+    category: 'plats',
+    title: 'Poulet Yassa',
+    desc: 'Poulet mariné aux oignons caramélisés, citron et moutarde, servi avec du riz blanc parfumé.',
+    price: '22€',
+    origin: 'Sénégal',
+    badge: 'Chef',
+    img: 'https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/118cf5b22-f466-4a39-af5c-72bf86207abc.png'
+  },
+  {
+    category: 'plats',
+    title: 'Tajine d\'Agneau',
+    desc: 'Agneau fondant aux pruneaux, amandes et épices douces, accompagné de semoule fine.',
+    price: '28€',
+    origin: 'Afrique du Nord',
+    badge: 'Premium',
+    img: 'https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1e662b8ac-b12c-4684-ae54-77b693d3b96c.png'
+  },
+  {
+    category: 'entrees',
+    title: 'Samossas Épicés',
+    desc: 'Triangles croustillants farcis de viande hachée épicée et légumes frais, sauce menthe.',
+    price: '10€',
+    origin: 'Afrique de l\'Est',
+    badge: 'Nouveau',
+    img: 'https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1b1c83cc8-041b-4c99-8355-7a363f8fbcec.png'
+  },
+  {
+    category: 'desserts',
+    title: 'Thiéré au Lait Caillé',
+    desc: 'Dessert traditionnel sénégalais à base de semoule, lait caillé, sucre et vanille de Madagascar.',
+    price: '9€',
+    origin: 'Sénégal',
+    badge: 'Tradition',
+    img: 'https://image.qwenlm.ai/public_source/5a1ccef2-9e5d-4054-a5ad-9e0d5d1c8c5e/1e662b8ac-b12c-4684-ae54-77b693d3b96c.png'
+  },
+  {
+    category: 'boissons',
+    title: 'Champagne Le Kiniun',
+    desc: 'Notre cuvée Brut signature, au blason du lion couronné. Bulles fines, notes d\'agrumes et touche briochée.',
+    price: '65€',
+    origin: 'Cuvée Maison',
+    badge: 'Exclusivité',
+    img: 'assets/champagne-pro.jpeg'
+  }
+];
+
+// ===== RENDER MENU =====
+const menuGrid = document.getElementById('menuGrid');
+function renderMenu(category = 'all') {
+  const filtered = category === 'all' ? menuItems : menuItems.filter(i => i.category === category);
+  menuGrid.innerHTML = filtered.map(item => `
+    <div class="menu-card fade-in visible">
+      <div class="menu-card-img">
+        <img src="${item.img}" alt="${item.title}">
+        <div class="menu-card-badge">${item.badge}</div>
+      </div>
+      <div class="menu-card-content">
+        <h3 class="menu-card-title">${item.title}</h3>
+        <p class="menu-card-desc">${item.desc}</p>
+        <div class="menu-card-footer">
+          <div class="menu-card-price">${item.price}</div>
+          <div class="menu-card-origin">${item.origin}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+renderMenu();
+
+// ===== MENU TABS =====
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderMenu(tab.dataset.category);
+  });
+});
+
+// ===== RESERVATION FORM =====
+const form = document.getElementById('reservationForm');
+const notif = document.getElementById('notification');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  notif.classList.add('show');
+  form.reset();
+  setTimeout(() => notif.classList.remove('show'), 4000);
+});
+
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ===== COUNTER ANIMATION =====
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const counters = entry.target.querySelectorAll('.stat-number');
+      counters.forEach(counter => {
+        const target = parseInt(counter.textContent);
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target + (counter.textContent.includes('+') ? '+' : '');
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : '');
+          }
+        }, 30);
+      });
+      statObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+const statsSection = document.querySelector('.about-stats');
+if (statsSection) statObserver.observe(statsSection);
+</script>
+
+</body>
+</html>
